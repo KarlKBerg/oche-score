@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Homepage for the newest dartgames, offering games like 501/301, Mickey mouse, and killer. Stay tuned as more games will be added."
+    />
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script
+      src="https://kit.fontawesome.com/b5a5784c82.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Oche Score | Match</title>
+  </head>
+  <body>
+    <!-- ==== HEADER ==== -->
+    <header>
+      <h1 id="logo"><a href="index.html">Oche Score</a></h1>
+      <div class="right-elements">
+        <!-- NAVIGATION -->
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="rules.html">Rules</a></li>
+          </ul>
+        </nav>
+        <!-- Login/Register -->
+        <a href="login.html" id="login-btn">
+          <h3>Login/Register</h3>
+        </a>
+      </div>
+    </header>
+    <!-- ==== END HEADER ==== -->
+
+    <!-- ==== MAIN ==== -->
+    <main id="main-section">
+      <!-- ==== SETTINGS ==== -->
+      <section id="settings" class="main-section">
+        <div class="settings-container">
+          <h2 class="section-heading">Settings</h2>
+          <!-- Choose number of players-->
+          <div class="nr-of-players">
+            <h3 class="setting-heading">Choose number of players</h3>
+            <button id="2-players" class="active" data-players="2">
+              2 players
+            </button>
+            <button id="3-players" data-players="3">3 players</button>
+            <button id="4-players" data-players="4">4 players</button>
+            <button id="5-players" data-players="5">5 players</button>
+            <button id="6-players" data-players="6">6 players</button>
+            <button id="7-players" data-players="7">7 players</button>
+            <button id="8-players" data-players="8">8 players</button>
+            <button id="9-players" data-players="9">9 players</button>
+            <button id="10-players" data-players="10">10 players</button>
+
+            <div class="input-container" id="player-names-container">
+              <div class="player-name-input">
+                <label>Player 1: </label>
+                <input
+                  type="text"
+                  id="player-name-0"
+                  name="player-name-0"
+                  ,
+                  placeholder="Player 1"
+                />
+              </div>
+              <div class="player-name-input">
+                <label>Player 2: </label>
+                <input
+                  type="text"
+                  id="player-name-1"
+                  name="player-name-1"
+                  ,
+                  placeholder="Player 2"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Choose starting score -->
+          <div class="starting-score">
+            <h3 class="setting-heading">Choose starting score</h3>
+            <button id="301" data-score="301" class="">301</button>
+            <button id="501" data-score="501" class="active">501</button>
+          </div>
+          <!-- Choose double or single out -->
+          <div class="out-option">
+            <h3 class="setting-heading">Choose out option</h3>
+            <button id="double-out" class="active" data-double="true">
+              Double out
+            </button>
+            <button id="single-out" data-double="false">Single out</button>
+          </div>
+          <!-- Best of legs -->
+          <div class="legs">
+            <h3 class="setting-heading">Best of legs</h3>
+            <button id="best-of-1" data-legs="1" class="active">
+              Best of 1
+            </button>
+            <button id="best-of-3" data-legs="3">Best of 3</button>
+            <button id="best-of-5" data-legs="5">Best of 5</button>
+          </div>
+          <!-- Handicap -->
+          <div class="handicap">
+            <div class="select-handi">
+              <h2 class="setting-heading">Handicap (optional)</h2>
+              <input type="checkbox" />
+            </div>
+            <div class="handi-options hidden">
+              <div class="score-handicap">
+                <h3 class="setting-heading">Score</h3>
+                <button id="handi-301" class="active">301</button>
+                <button id="handi-501">501</button>
+              </div>
+              <div class="out-handi">
+                <h3 class="setting-heading">Out</h3>
+                <button id="double-handi">Double out</button>
+                <button id="single-handi" class="active">Single out</button>
+              </div>
+            </div>
+          </div>
+          <!-- Choos player with handicap -->
+          <div class="player-handicap hidden"></div>
+          <!-- Start game button-->
+          <button id="start-game-btn">Start Game</button>
+        </div>
+      </section>
+      <!-- === END SETTINGS ==== -->
+
+      <!-- ==== GAME ==== -->
+      <section id="game" class="main-section hidden">
+        <div class="display-message" id="display-message"></div>
+        <div class="game-container">
+          <div id="players-container"></div>
+
+          <div id="current-player"></div>
+        </div>
+
+        <div class="keypad" id="keypad">
+          <div class="input-submit">
+            <input type="number" id="score-input" placeholder="Enter score" />
+            <button id="submit-score">Submit</button>
+          </div>
+          <div class="keypad-buttons">
+            <button class="keypad-btn">1</button>
+            <button class="keypad-btn">2</button>
+            <button class="keypad-btn">3</button>
+            <button class="keypad-btn">4</button>
+            <button class="keypad-btn">5</button>
+            <button class="keypad-btn">6</button>
+            <button class="keypad-btn">7</button>
+            <button class="keypad-btn">8</button>
+            <button class="keypad-btn">9</button>
+            <button id="clear-btn">C</button>
+            <button class="keypad-btn">0</button>
+          </div>
+        </div>
+        <button id="new-game-btn" class="">New Game</button>
+      </section>
+      <!-- ==== END GAME ==== -->
+      <div class="double-promt main-section hidden" id="double-prompt">
+        <h3>Was last dart a double?</h3>
+        <div class="buttons" id="last-dart-buttons">
+          <button class="last-dart-button" id="yes-button" data-last="true">
+            Yes
+          </button>
+          <button class="last-dart-button" id="no-button" data-last="false">
+            No
+          </button>
+        </div>
+      </div>
+      <div class="new-game-prompt main-section hidden" id="new-game-prompt">
+        <h3>Are you sure you want to start a new game</h3>
+        <div class="confirm-buttons" id="confirm-buttons">
+          <button class="confirm-quit-button" id="quit-button">Yes</button>
+          <button class="confirm-quit-button" id="no-quit-button">No</button>
+        </div>
+      </div>
+      <!-- ==== WINNING DISPLAY ==== -->
+      <section class="main-section hidden" id="winning-stats">
+        <div id="all-player-stats"></div>
+        <button id="play-again" class="">New Game</button>
+      </section>
+    </main>
+    <!-- ==== END MAIN ==== -->
+    <!-- JavaScript link -->
+    <script src="js/match.js"></script>
+  </body>
+</html>
