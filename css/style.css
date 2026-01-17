@@ -1,0 +1,50 @@
+:root {
+  /* FONTS */
+  --heading-font: "Cinzel", serif;
+  --body-font: "Montserrat", sans-serif;
+
+  /* COLORS */
+  --main-bcg: #0f1115;
+  --cards-bcg: #151821;
+  --panels: #1c1f2a;
+
+  --accent-primary: #d4af37;
+  --accent-borders: #b8962e;
+  --accent-glow: #e6c75a;
+}
+/* ==== MAIN ==== */
+body {
+  background-color: var(--main-bcg);
+  font-family: var(--body-font);
+  color: white;
+  font-size: 1.8rem;
+  width: 60%;
+  margin: 0 auto;
+  padding: 2.4rem 0;
+}
+/* ==== HEADER ==== */
+header {
+  display: flex;
+  justify-content: space-between;
+}
+.right-elements {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+/* LOGO */
+h2 {
+  font-size: 3.2rem;
+  font-family: var(--heading-font);
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+/* NAV */
+ul {
+  display: flex;
+  gap: 1.6rem;
+}
+li:hover,
+#login-btn:hover {
+  color: var(--accent-primary);
+}
