@@ -78,7 +78,7 @@ document.querySelectorAll(".nr-of-players button").forEach((btn) => {
 
     // Create input fields for player names based on playerCount
     const playerNamesContainer = document.getElementById(
-      "player-names-container"
+      "player-names-container",
     );
     for (let i = 0; i < playerCount; i++) {
       if (!document.getElementById(`player-name-${i}`)) {
@@ -129,7 +129,7 @@ function syncSettingsUI() {
   document.querySelectorAll(".starting-score button").forEach((btn) => {
     btn.classList.toggle(
       "active",
-      parseInt(btn.dataset.score) === selectedScore
+      parseInt(btn.dataset.score) === selectedScore,
     );
   });
 
@@ -147,7 +147,7 @@ function syncSettingsUI() {
   document.querySelectorAll(".nr-of-players button").forEach((btn) => {
     btn.classList.toggle(
       "active",
-      parseInt(btn.dataset.players) === playerCount
+      parseInt(btn.dataset.players) === playerCount,
     );
   });
 }
@@ -516,7 +516,7 @@ function displayWinningPage() {
 
     const highestScore = document.createElement("h4");
     highestScore.textContent = `Highest score: ${Math.max(
-      ...player.lastScore
+      ...player.lastScore,
     )}`;
 
     winningStats.appendChild(playerDiv);
