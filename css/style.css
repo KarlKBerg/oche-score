@@ -18,9 +18,10 @@ body {
   font-family: var(--body-font);
   color: white;
   font-size: 1.8rem;
+}
+main {
   width: 60%;
   margin: 0 auto;
-  padding: 2.4rem 0;
 }
 /* RE-USE CLASSES */
 .heading {
@@ -54,6 +55,7 @@ header {
   display: flex;
   justify-content: space-between;
   font-size: 2rem;
+  padding: 2.4rem;
 }
 .right-elements {
   display: flex;
@@ -78,7 +80,6 @@ li:hover,
 }
 /* ==== MAIN SECTION ==== */
 #main-section {
-  margin-top: 8rem;
   display: flex;
   flex-direction: column;
   gap: 8rem;
