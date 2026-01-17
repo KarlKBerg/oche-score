@@ -122,7 +122,74 @@ const resetGame = () => {
   document.getElementById("settings").classList.remove("hidden");
   document.getElementById("game").classList.add("hidden");
   document.getElementById("winning-stats").classList.add("hidden");
+  document.getElementById("keypad").classList.add("hidden");
 };
+function syncSettingsUI() {
+  // Starting score
+  document.querySelectorAll(".starting-score button").forEach((btn) => {
+    btn.classList.toggle(
+      "active",
+      parseInt(btn.dataset.score) === selectedScore
+    );
+  });
+
+  // Double out
+  document.querySelectorAll(".out-option button").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.double === String(doubleOut));
+  });
+
+  // Legs
+  document.querySelectorAll(".legs button").forEach((btn) => {
+    btn.classList.toggle("active", parseInt(btn.dataset.legs) === legsToWin);
+  });
+
+  // Number of players
+  document.querySelectorAll(".nr-of-players button").forEach((btn) => {
+    btn.classList.toggle(
+      "active",
+      parseInt(btn.dataset.players) === playerCount
+    );
+  });
+}
+
+function resetToSettings() {
+  // Reset player stats but KEEP players & names
+  players.forEach((player) => {
+    player.currentScore = selectedScore;
+    player.startingScore = selectedScore;
+    player.lastScore = [];
+    player.avg = 0;
+    player.throws = 0;
+    player.lastDartDouble = false;
+    player.isMyTurn = false;
+  });
+
+  // First player starts next game
+  if (players.length > 0) {
+    players[0].isMyTurn = true;
+  }
+
+  // Reset game flags
+  pendingCheckout = false;
+  pendingCheckoutScore = null;
+  score = "";
+
+  // Clear messages & input
+  document.getElementById("display-message").innerHTML = "";
+  document.getElementById("score-input").value = "";
+
+  // Restore UI
+  document.getElementById("winning-stats").classList.add("hidden");
+  document.getElementById("game").classList.add("hidden");
+  document.getElementById("keypad").classList.remove("hidden");
+  document.getElementById("new-game-prompt").classList.add("hidden");
+
+  // Show settings again
+  document.getElementById("settings").classList.remove("hidden");
+
+  // Reset button styles
+  document.getElementById("new-game-btn").style.backgroundColor = "";
+}
 
 // Handle starting score selection
 document.querySelectorAll(".starting-score button").forEach((btn) => {
@@ -133,6 +200,7 @@ document.querySelectorAll(".starting-score button").forEach((btn) => {
     btn.classList.add("active");
     selectedScore = parseInt(btn.dataset.score);
   });
+  syncSettingsUI();
 });
 
 // handle double out or single out selection
@@ -535,7 +603,7 @@ let cancel = document.getElementById("no-quit-button");
 let newGamePrompt = document.getElementById("new-game-prompt");
 
 document.getElementById("new-game-btn").addEventListener("click", showPrompt);
-quit.addEventListener("click", resetGame);
+quit.addEventListener("click", resetToSettings);
 cancel.addEventListener("click", cancelFunc);
 function showPrompt() {
   document.getElementById("new-game-prompt").classList.remove("hidden");
@@ -548,4 +616,6 @@ function cancelFunc() {
 }
 // New game/reset button eventListener
 // document.getElementById("new-game-btn").addEventListener("click", resetGame);
-document.getElementById("play-again").addEventListener("click", resetGame);
+document
+  .getElementById("play-again")
+  .addEventListener("click", resetToSettings);
