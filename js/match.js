@@ -471,6 +471,7 @@ function submitTurn() {
   }
 }
 
+// Check if last dart was double
 document.querySelectorAll(".buttons button").forEach((btn) => {
   btn.addEventListener("click", () => {
     const player = players.find((p) => p.isMyTurn);
@@ -480,7 +481,7 @@ document.querySelectorAll(".buttons button").forEach((btn) => {
 
     if (btn.dataset.last === "true") {
       player.lastDartDouble = true;
-      resolveCheckout(); // ✅ FINISHES THE LEG
+      resolveCheckout();
     } else {
       playerBust();
       nextPlayerTurn();
