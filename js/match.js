@@ -142,7 +142,11 @@ function syncSettingsUI() {
 
   // Legs
   document.querySelectorAll(".legs button").forEach((btn) => {
-    btn.classList.toggle("active", parseInt(btn.dataset.legs) === legsToWin);
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("active");
+      let legs = parseInt(btn.dataset.legs);
+      legsToWin = legs;
+    });
   });
 
   // Number of players
@@ -368,6 +372,12 @@ function startGame() {
   document.getElementById("settings").classList.add("hidden");
 
   document.getElementById("game").classList.remove("hidden");
+  const legsDisplay = document.getElementById("legs");
+  // Display rules
+  let rulesContainer = document.querySelector("#game .rules-container");
+  let legRule = document.createElement("h2");
+  legRule.textContent = `Best of: ${legsToWin}`;
+  rulesContainer.appendChild(legRule);
 }
 
 // Game logic
@@ -387,7 +397,7 @@ function submitTurn() {
         playerIsMyTurn.lastDartDouble !== true
       ) {
         pendingCheckout = true;
-        pendingCheckoutScore = tempScore; // 🔴 THIS WAS MISSING
+        pendingCheckoutScore = tempScore;
         document.getElementById("game").classList.add("hidden");
         document.getElementById("double-prompt").classList.remove("hidden");
         return;
@@ -397,11 +407,20 @@ function submitTurn() {
         tempScore === playerIsMyTurn.currentScore &&
         playerIsMyTurn.lastDartDouble === true
       ) {
-        // Player won
-        updatePlayer();
-        playerWon();
-        displayPlayers();
-        displayCurrentPlayerStats();
+        playerIsMyTurn.legsWon += 1;
+        if (playerIsMyTurn.legsWon === legsToWin) {
+          // Player won
+          updatePlayer();
+          playerWon();
+          displayPlayers();
+          displayCurrentPlayerStats();
+        } else {
+          updatePlayer();
+          legWin();
+          nextPlayerTurn();
+          displayPlayers();
+          displayCurrentPlayerStats();
+        }
       } else if (tempScore > playerIsMyTurn.currentScore) {
         showErrorMessage("No score");
         // Update throws, update stats and move turn to next player.
@@ -489,7 +508,7 @@ function resolveCheckout() {
   player.throws = player.lastScore.length * 3;
 
   // Finish leg
-  playerWon();
+  // playerWon();
 
   // Cleanup
   pendingCheckout = false;
@@ -616,6 +635,21 @@ function cancelFunc() {
   document.getElementById("game").classList.remove("hidden");
   return;
 }
+
+// continue game after leg win
+function legWin() {
+  const playerIsMyTurn = players.find(player);
+  playerIsMyTurn.currentScore = players.startingScore;
+  playerIsMyTurn.avg = 0;
+  playerIsMyTurn.throws = 0;
+  playerIsMyTurn.lastScore = [];
+  cancelFunc();
+  document.getElementById("settings").classList.remove("hidden");
+  document.getElementById("game").classList.add("hidden");
+  document.getElementById("winning-stats").classList.add("hidden");
+  document.getElementById("keypad").classList.add("hidden");
+}
+
 // New game/reset button eventListener
 // document.getElementById("new-game-btn").addEventListener("click", resetGame);
 document
